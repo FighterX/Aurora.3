@@ -89,8 +89,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		return
 
 	//generate keywords lookup
-	msg = generate_ahelp_key_words(mob, msg)
-
+//	msg = generate_ahelp_key_words(mob, msg)
 	// handle ticket
 	var/datum/ticket/ticket = get_open_ticket_by_ckey(ckey)
 	if(!ticket)
