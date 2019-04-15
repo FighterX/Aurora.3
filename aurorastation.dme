@@ -73,6 +73,7 @@
 #include "code\_helpers\mouse.dm"
 #include "code\_helpers\names.dm"
 #include "code\_helpers\overlay.dm"
+#include "code\_helpers\rhtml.dm"
 #include "code\_helpers\sanitize_values.dm"
 #include "code\_helpers\spawn_sync.dm"
 #include "code\_helpers\text.dm"
