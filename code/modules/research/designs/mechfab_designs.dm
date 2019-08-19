@@ -417,13 +417,6 @@
 	materials = list(DEFAULT_WALL_MATERIAL = 80000, "glass" = 6000, "gold" = 5000)
 	build_path = /obj/item/borg/upgrade/vtec
 
-/datum/design/item/robot_upgrade/tasercooler
-	name = "Rapid taser cooling module"
-	desc = "Used to cool a mounted taser, increasing the potential current in it and thus its recharge rate."
-	id = "borg_taser_module"
-	materials = list(DEFAULT_WALL_MATERIAL = 80000, "glass" = 6000, "gold" = 2000, "diamond" = 500)
-	build_path = /obj/item/borg/upgrade/tasercooler
-
 /datum/design/item/robot_upgrade/jetpack
 	name = "Jetpack module"
 	desc = "A carbon dioxide jetpack suitable for low-gravity mining operations."
@@ -946,8 +939,8 @@
 	materials = list(DEFAULT_WALL_MATERIAL = 30000, "glass" = 12500, "silver" = 3500, "gold" = 3500, "uranium" = 5550, "diamond" = 7500)
 
 /datum/design/rig/hacker
-	name = "light suit control module assembly"
-	desc = "An assembly for a lighter, less armoured rig suit."
+	name = "cybersuit control module assembly"
+	desc = "An assembly for an advanced powered armour suit with many cyberwarfare enhancements. Comes with built-in insulated gloves for safely tampering with electronics."
 	id = "rig_hacker"
 	build_path = /obj/item/rig_assembly/combat/illegal/hacker
 	req_tech = list(TECH_MATERIAL = 4, TECH_ENGINEERING = 3, TECH_MAGNET = 2, TECH_POWER = 3, TECH_COMBAT = 3, TECH_ILLEGAL = 3)

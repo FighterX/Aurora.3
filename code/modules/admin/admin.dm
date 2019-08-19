@@ -6,14 +6,16 @@ var/global/enabled_spooking = 0
 ////////////////////////////////
 /proc/message_admins(var/msg)
 	msg = "<span class=\"log_message\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
-	for(var/client/C in admins)
+	for(var/s in staff)
+		var/client/C = s
 		if((R_ADMIN|R_MOD) & C.holder.rights)
 			to_chat(C, msg)
 
 /proc/msg_admin_attack(var/text,var/ckey="",var/ckey_target="") //Toggleable Attack Messages
 	log_attack(text,ckey=ckey,ckey_target=ckey_target)
 	var/rendered = "<span class=\"log_message\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
-	for(var/client/C in admins)
+	for(var/s in staff)
+		var/client/C = s
 		if((R_ADMIN|R_MOD) & C.holder.rights)
 			if(C.prefs.toggles & CHAT_ATTACKLOGS)
 				var/msg = rendered
@@ -115,7 +117,6 @@ proc/admin_notice(var/message, var/rights)
 			else if(ishuman(M))
 				body += {"<A href='?src=\ref[src];makeai=\ref[M]'>Make AI</A> |
 					<A href='?src=\ref[src];makerobot=\ref[M]'>Make Robot</A> |
-					<A href='?src=\ref[src];makealien=\ref[M]'>Make Alien</A> |
 					<A href='?src=\ref[src];makeslime=\ref[M]'>Make slime</A>
 				"}
 
@@ -665,11 +666,13 @@ proc/admin_notice(var/message, var/rights)
 	set category = "Special Verbs"
 	set name = "Announce"
 	set desc="Announce your desires to the world"
-	if(!check_rights(0))	return
 
-	var/message = input("Global message to send:", "Admin Announce", null, null)  as message//todo: sanitize for all?
+	if (!check_rights(R_ADMIN))
+		return
+
+	var/message = input("Global message to send:", "Admin Announce", null, null) as message
 	if(message)
-		if(!check_rights(R_SERVER,0))
+		if(!check_rights(R_SERVER, 0))
 			message = sanitize(message, 500, extra = 0)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
 		to_world("<span class=notice><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>")
@@ -735,9 +738,19 @@ proc/admin_notice(var/message, var/rights)
 		return
 
 	config.dooc_allowed = !( config.dooc_allowed )
-	log_admin("[key_name(usr)] toggled Dead OOC.")
-	message_admins("[key_name_admin(usr)] toggled Dead OOC.", 1)
+	log_and_message_admins("toggled dead (global) OOC. (New state: [config.dooc_allowed])")
 	feedback_add_details("admin_verb","TDOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/datum/admins/proc/toggle_dead_looc()
+	set category = "Server"
+	set desc = "Toggle Dead LOOC."
+	set name = "Toggle Dead LOOC"
+
+	if (!check_rights(R_ADMIN))
+		return
+
+	config.dead_looc_allowed = !config.dead_looc_allowed
+	log_and_message_admins("toggled dead LOOC. (New state: [config.dead_looc_allowed])")
 
 /datum/admins/proc/togglehubvisibility()
 	set category = "Server"

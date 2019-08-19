@@ -313,12 +313,6 @@
 	icon_state = "zebrascarf"
 	item_state = "zebrascarf"
 
-/obj/item/clothing/accessory/scarf/offworlder
-	name = "pioneer's scarf"
-	desc = "Usually a treasured item, these spider-silk scarves are seen passed down by generations of expeditionaries."
-	icon_state = "pioneer_scarf"
-	item_state = "pioneer_scarf"
-
 /obj/item/clothing/accessory/chaps
 	name = "brown chaps"
 	desc = "A pair of loose, brown leather chaps."
@@ -341,7 +335,7 @@
 	icon_state = "classicponcho"
 	item_state = "classicponcho"
 	icon_override = 'icons/mob/ties.dmi'
-	allowed = list(/obj/item/weapon/tank/emergency_oxygen)
+	allowed = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/storage/bible,/obj/item/weapon/nullrod,/obj/item/weapon/reagent_containers/food/drinks/bottle/holywater)
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	slot_flags = SLOT_OCLOTHING | SLOT_TIE
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
@@ -570,3 +564,27 @@
 	desc = "A lightweight polymer frame meant to brace and hold someone's neck upright comfortably."
 	icon_state = "neckbrace"
 	item_state = "neckbrace"
+
+/obj/item/clothing/accessory/offworlder/bracer/neckbrace
+	name = "neckbrace"
+	desc = "A lightweight polymer frame meant to brace and hold someone's neck upright comfortably."
+	icon_state = "neckbrace"
+	item_state = "neckbrace"
+
+/obj/item/clothing/accessory/tc_pin
+	name = "Tau Ceti pin"
+	desc = "A small, Tau Ceti flag pin of the Republic of Tau Ceti."
+	icon_state = "tc-pin"
+	item_state = "tc-pin"
+
+/obj/item/clothing/accessory/sol_pin
+	name = "Sol Alliance pin"
+	desc = "A small pin of the Sol Alliance, shaped like a golden sun."
+	icon_state = "sol-pin"
+	item_state = "sol-pin"
+
+/obj/item/clothing/accessory/hadii_pin
+	name = "hadiist party pin"
+	desc = "A small, red flag pin of the People's Republic."
+	icon_state = "hadii-pin"
+	item_state = "hadii-pin"

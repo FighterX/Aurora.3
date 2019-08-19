@@ -6,6 +6,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
+	matter = list(DEFAULT_WALL_MATERIAL = 320, "glass" = 800)
 	var/obj/item/weapon/implant/imp = null
 
 /obj/item/weapon/implanter/attack_self(var/mob/user)
@@ -134,6 +135,19 @@
 			S.remove_from_storage(A)
 		A.loc.contents.Remove(A)
 		update()
+
+/obj/item/weapon/implanter/freedom/Initialize()
+	imp = new /obj/item/weapon/implant/freedom( src )
+	..()
+	update()
+
+/obj/item/weapon/implanter/uplink
+	name = "implanter (U)"
+
+/obj/item/weapon/implanter/uplink/Initialize()
+	imp = new /obj/item/weapon/implant/uplink( src )
+	..()
+	update()
 
 /obj/item/weapon/implanter/ipc_tag
 	name = "IPC/Shell tag implanter"

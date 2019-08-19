@@ -393,26 +393,21 @@
 	set name = "Add Note"
 	set category = "IC"
 
+	if (!mind)
+		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
+		return
+
+	if (length(mind.memory) >= MAX_PAPER_MESSAGE_LEN)
+		to_chat(src, "<span class='danger'>You have exceeded the alotted text size for memories.</span>")
+		return
+
 	msg = sanitize(msg)
 
-	if(mind)
-		mind.store_memory(msg)
-	else
-		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
+	if (length(mind.memory + msg) >= MAX_PAPER_MESSAGE_LEN)
+		to_chat(src, "<span class='danger'>Your input would exceed the alotted text size for memories. Try again with a shorter message.</span>")
+		return
 
-/mob/proc/store_memory(msg as message, popup, sane = 1)
-	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-
-	if (sane)
-		msg = sanitize(msg)
-
-	if (length(memory) == 0)
-		memory += msg
-	else
-		memory += "<BR>[msg]"
-
-	if (popup)
-		memory()
+	mind.store_memory(msg)
 
 /mob/proc/update_flavor_text()
 	set src in usr
@@ -1285,6 +1280,13 @@ mob/proc/yank_out_object()
 	feedback_add_details("admin_verb", "UNWIND")
 
 	return
+
+
+/mob/proc/is_clumsy()
+	if(CLUMSY in mutations)
+		return TRUE
+
+	return FALSE
 
 //Helper proc for figuring out if the active hand (or given hand) is usable.
 /mob/proc/can_use_hand()

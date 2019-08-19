@@ -74,23 +74,6 @@
 		M.Animalize()
 
 
-/client/proc/cmd_admin_alienize(var/mob/M in mob_list)
-	set category = "Fun"
-	set name = "Make Alien"
-
-	if(!ROUND_IS_STARTED)
-		alert("Wait until the game starts")
-		return
-	if(ishuman(M))
-		log_admin("[key_name(src)] has alienized [M.key].",admin_key=key_name(usr),ckey=key_name(M))
-		spawn(10)
-			M:Alienize()
-			feedback_add_details("admin_verb","MKAL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		log_admin("[key_name(usr)] made [key_name(M)] into an alien.",admin_key=key_name(usr),ckey=key_name(M))
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into an alien.</span>", 1)
-	else
-		alert("Invalid mob")
-
 /client/proc/cmd_admin_slimeize(var/mob/M in mob_list)
 	set category = "Fun"
 	set name = "Make slime"
@@ -409,7 +392,7 @@
 		return
 
 	feedback_add_details("admin_verb","SEQ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	
+
 	if(dostrip)
 		for (var/obj/item/I in M)
 			if (istype(I, /obj/item/weapon/implant))
@@ -421,7 +404,7 @@
 	switch(dresscode)
 		if("strip")
 			//do nothing
-		
+
 		if("as job...")
 			var/datum/job/jobdatum
 			var/jobname = input("Select job", "Robust quick dress shop") as null|anything in get_all_jobs()
@@ -430,7 +413,7 @@
 				dresscode = "[jobdatum.title]"
 				M.job = jobdatum.title
 				jobdatum.equip(M)
-		
+
 		if("emergency response team")
 			ert.equip(M)
 
@@ -502,19 +485,19 @@
 	set name = "Debug Mob Lists"
 	set desc = "For when you just gotta know"
 
-	switch(input("Which list?") in list("Players","Admins","Mobs","Living Mobs","Dead Mobs", "Clients"))
+	switch(input("Which list?") in list("Players","Staff","Mobs","Living Mobs","Dead Mobs", "Clients"))
 		if("Players")
-			to_chat(usr, jointext(player_list,","))
-		if("Admins")
-			to_chat(usr, jointext(admins,","))
+			to_chat(usr, jointext(player_list,", "))
+		if("Staff")
+			to_chat(usr, jointext(staff,", "))
 		if("Mobs")
-			to_chat(usr, jointext(mob_list,","))
+			to_chat(usr, jointext(mob_list,", "))
 		if("Living Mobs")
-			to_chat(usr, jointext(living_mob_list,","))
+			to_chat(usr, jointext(living_mob_list,", "))
 		if("Dead Mobs")
-			to_chat(usr, jointext(dead_mob_list,","))
+			to_chat(usr, jointext(dead_mob_list,", "))
 		if("Clients")
-			to_chat(usr, jointext(clients,","))
+			to_chat(usr, jointext(clients,", "))
 
 // DNA2 - Admin Hax
 /client/proc/cmd_admin_toggle_block(var/mob/M,var/block)

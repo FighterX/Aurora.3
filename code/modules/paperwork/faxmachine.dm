@@ -9,7 +9,7 @@ var/list/admin_departments
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
-	req_one_access = list(access_lawyer, access_heads, access_armory) //Warden needs to be able to Fax tau ceti gov too.
+	req_one_access = list(access_lawyer, access_heads)
 	density = 0//It's a small machine that sits on a table, this allows small things to walk under that table
 	use_power = 1
 	idle_power_usage = 30
@@ -34,7 +34,7 @@ var/list/admin_departments
 	if( !(("[department]" in alldepartments) || ("[department]" in admin_departments)) )
 		alldepartments |= department
 
-/obj/machinery/photocopier/faxmachine/vueui_data_change(var/list/newdata, var/mob/user, var/vueui/ui)
+/obj/machinery/photocopier/faxmachine/vueui_data_change(var/list/newdata, var/mob/user, var/datum/vueui/ui)
 	// Build baseline data, that's read-only
 	if(!newdata)
 		. = newdata = list("destination" = "[current_map.boss_name]", "idname" = "", "paper" = "")
@@ -270,8 +270,8 @@ var/list/admin_departments
 	//message badmins that a fax has arrived
 	if (destination == current_map.boss_name)
 		message_admins(sender, "[uppertext(current_map.boss_short)] FAX", rcvdcopy, "CentcommFaxReply", "#006100")
-	else if (destination == "[current_map.system_name] Government")
-		message_admins(sender, "[uppertext(current_map.system_name)] GOVERNMENT FAX", rcvdcopy, "CentcommFaxReply", "#1F66A0")
+	else if (destination == "External Routing")
+		message_admins(sender, "EXTERNAL ROUTING FAX", rcvdcopy, "CentcommFaxReply", "#1F66A0")
 
 	set_cooldown(adminfax_cooldown)
 	spawn(50)
@@ -283,7 +283,8 @@ var/list/admin_departments
 
 	var/cciaa_present = 0
 	var/cciaa_afk = 0
-	for(var/client/C in admins)
+	for(var/s in staff)
+		var/client/C = s
 		var/flags = C.holder.rights & (R_ADMIN|R_CCIAA)
 		if(flags)
 			to_chat(C, msg)

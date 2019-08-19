@@ -25,8 +25,8 @@
 		return
 
 	var/types = target.find_type()
-	if(ismouse(target))
-		var/mob/living/simple_animal/mouse/M = target
+	if(israt(target))
+		var/mob/living/simple_animal/rat/M = target
 		visible_message("<span class='danger'>SPLAT!</span>")
 		M.splat()
 	else
@@ -58,7 +58,7 @@
 	if(!armed)
 		to_chat(user, "<span class='notice'>You arm [src].</span>")
 	else
-		if(((CLUMSY in user.mutations) || (DUMB in user.mutations)) && prob(50))
+		if(((user.is_clumsy()) || (DUMB in user.mutations)) && prob(50))
 			var/which_hand = "l_hand"
 			if(!user.hand)
 				which_hand = "r_hand"
@@ -74,7 +74,7 @@
 
 /obj/item/device/assembly/mousetrap/attack_hand(mob/living/user as mob)
 	if(armed)
-		if(((CLUMSY in user.mutations) || (DUMB in user.mutations)) && prob(50))
+		if(((user.is_clumsy()) || (DUMB in user.mutations)) && prob(50))
 			var/which_hand = "l_hand"
 			if(!user.hand)
 				which_hand = "r_hand"
@@ -87,7 +87,7 @@
 
 /obj/item/device/assembly/mousetrap/Crossed(AM as mob|obj)
 	if(armed)
-		if(ismouse(AM))
+		if(israt(AM))
 			triggered(AM)
 		else if(istype(AM, /mob/living))
 			var/mob/living/L = AM
